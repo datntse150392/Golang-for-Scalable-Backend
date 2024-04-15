@@ -42,12 +42,12 @@ Pub / Sub trong Golang.</br>
 Xây dựng async job queue & message broker.</br>
 
 ## TOPIC 7: TRIỂN KHAI (DEPLOY) & MONITORING
-Log system trong Golang.
-Cơ chế tự động phục hồi kết nối DB (resilience).
-Cách sử dụng environment trong Golang.
-Build & Deploy với Docker.
-Sử dụng nginx (container Docker) làm reverse proxy.
-Bonus: Monitoring & Tracing.
+Log system trong Golang.</br>
+Cơ chế tự động phục hồi kết nối DB (resilience).</br>
+Cách sử dụng environment trong Golang.</br>
+Build & Deploy với Docker.</br>
+Sử dụng nginx (container Docker) làm reverse proxy.</br>
+Bonus: Monitoring & Tracing.</br>
 
 ## TOPIC 8: SỬ DỤNG GRPC ĐỂ TĂNG TẢI SERVICE
 Giới thiệu gRPC.</br>
