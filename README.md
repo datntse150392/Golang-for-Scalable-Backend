@@ -57,7 +57,7 @@ gRPC streaming.</br>
 Sử dụng gRPC Gateway để hỗ trợ thêm REST API.</br>
 Bonus: Các kinh nghiệm xử lý gRPC trong thực tế.</br>
 
-##TOPIC 9: MICROSERVICE CƠ BẢN (KHOÁ LIVESTREAM MỚI)
+## TOPIC 9: MICROSERVICE CƠ BẢN (KHOÁ LIVESTREAM MỚI)
 Hiểu rõ về Stateless service.</br>
 Phân tách và deploy nhiều Microservices.</br>
 Sử dụng Redis và NATs để tăng tải các services</br>.
