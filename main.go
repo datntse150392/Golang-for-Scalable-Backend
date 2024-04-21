@@ -26,6 +26,8 @@ func main() {
 
 	// POST restaurants
 	restaurants.POST("", ginrestaurant.CreateRestaurant(db))
+	// DELETE RESTAURANTS
+	restaurants.DELETE("/:id", ginrestaurant.DeleteRestaurant(db))
 
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 
