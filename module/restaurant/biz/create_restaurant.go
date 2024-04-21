@@ -7,7 +7,7 @@ import (
 )
 
 type CreateRestaurantStore interface {
-	CreateRestaurant(context context.Context, data *restaurantmodel.Restaurant) error
+	CreateRestaurant(context context.Context, data *restaurantmodel.RestaurantCreate) error
 }
 
 type createRestaurantBiz struct {
@@ -18,7 +18,7 @@ func NewCreateRestaurantBiz(store CreateRestaurantStore) *createRestaurantBiz {
 	return &createRestaurantBiz{store: store}
 }
 
-func (biz *createRestaurantBiz) CreateRestaurant(context context.Context, data *restaurantmodel.Restaurant) error {
+func (biz *createRestaurantBiz) CreateRestaurant(context context.Context, data *restaurantmodel.RestaurantCreate) error {
 	if data.Name == "" {
 		return errors.New("name is required")
 	}
