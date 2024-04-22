@@ -3,7 +3,6 @@ package restaurantbiz
 import (
 	restaurantmodel "Golang-for-Scalable-Backend/module/restaurant/model"
 	"context"
-	"errors"
 )
 
 type CreateRestaurantStore interface {
@@ -19,8 +18,9 @@ func NewCreateRestaurantBiz(store CreateRestaurantStore) *createRestaurantBiz {
 }
 
 func (biz *createRestaurantBiz) CreateRestaurant(context context.Context, data *restaurantmodel.RestaurantCreate) error {
-	if data.Name == "" {
-		return errors.New("name is required")
+
+	if err := data.Validate(); err != nil {
+		return err
 	}
 
 	if err := biz.store.Create(context, data); err != nil {

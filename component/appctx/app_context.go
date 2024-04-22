@@ -15,6 +15,7 @@ type appCtx struct {
 func NewAppContext(db *gorm.DB) *appCtx {
 	return &appCtx{db: db}
 }
+
 func (ctx *appCtx) GetMainDBConn() *gorm.DB {
 	return ctx.db
 }

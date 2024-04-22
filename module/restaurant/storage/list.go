@@ -6,14 +6,15 @@ import (
 	"context"
 )
 
-func (s *sqlStore) ListDataWithCondition(context context.Context,
+func (s *sqlStore) ListDataWithCondition(
+	context context.Context,
 	filter *restaurantmodel.Filter,
 	paging *common.Page,
-	moreKeys ...string) (
-	[]restaurantmodel.Restaurant, error) {
+	moreKeys ...string,
+) ([]restaurantmodel.Restaurant, error) {
 	var result []restaurantmodel.Restaurant
 
-	db := s.db.Where("status in (1)")
+	db := s.db.Table(restaurantmodel.Restaurant{}.TableName()).Where("status in (1)")
 
 	if f := filter; f != nil {
 		if f.OwnerId > 0 {
@@ -21,7 +22,13 @@ func (s *sqlStore) ListDataWithCondition(context context.Context,
 		}
 	}
 
-	if err := db.Find(&result).Error; err != nil {
+	if err := db.Count(&paging.Total).Error; err != nil {
+		return nil, err
+	}
+
+	offset := (paging.Page - 1) * paging.Limit
+
+	if err := db.Offset(offset).Limit(paging.Limit).Find(&result).Error; err != nil {
 		return nil, err
 	}
 
