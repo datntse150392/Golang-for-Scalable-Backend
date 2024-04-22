@@ -1,16 +1,18 @@
 package ginrestaurant
 
 import (
+	"Golang-for-Scalable-Backend/common"
+	"Golang-for-Scalable-Backend/component/appctx"
 	restaurantbiz "Golang-for-Scalable-Backend/module/restaurant/biz"
 	restaurantstorage "Golang-for-Scalable-Backend/module/restaurant/storage"
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 	"net/http"
 	"strconv"
 )
 
-func DeleteRestaurant(db *gorm.DB) gin.HandlerFunc {
+func DeleteRestaurant(appCtx appctx.AppContext) gin.HandlerFunc {
 	return func(c *gin.Context) {
+		db := appCtx.GetMainDBConn()
 		id, err := strconv.Atoi(c.Param("id"))
 
 		if err != nil {
@@ -30,8 +32,6 @@ func DeleteRestaurant(db *gorm.DB) gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(http.StatusOK, gin.H{
-			"data": 1,
-		})
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
 	}
 }

@@ -1,16 +1,18 @@
 package ginrestaurant
 
 import (
+	"Golang-for-Scalable-Backend/common"
+	"Golang-for-Scalable-Backend/component/appctx"
 	restaurantbiz "Golang-for-Scalable-Backend/module/restaurant/biz"
 	restaurantmodel "Golang-for-Scalable-Backend/module/restaurant/model"
 	restaurantstorage "Golang-for-Scalable-Backend/module/restaurant/storage"
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 	"net/http"
 )
 
-func CreateRestaurant(db *gorm.DB) gin.HandlerFunc {
+func CreateRestaurant(appCtx appctx.AppContext) gin.HandlerFunc {
 	return func(c *gin.Context) {
+		db := appCtx.GetMainDBConn()
 		var data restaurantmodel.RestaurantCreate
 
 		if err := c.ShouldBind(&data); err != nil {
@@ -32,8 +34,6 @@ func CreateRestaurant(db *gorm.DB) gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(http.StatusOK, gin.H{
-			"data": data,
-		})
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(data.Id))
 	}
 }
