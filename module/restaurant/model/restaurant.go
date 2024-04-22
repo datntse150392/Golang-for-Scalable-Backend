@@ -1,10 +1,15 @@
 package restaurantmodel
 
+import (
+	"Golang-for-Scalable-Backend/common"
+	"errors"
+	"strings"
+)
+
 type Restaurant struct {
-	Id     int    `json:"id" gorm:"column:id"`
-	Name   string `json:"name" gorm:"column:name"`
-	Addr   string `json:"addr" gorm:"column:addr"`
-	Status int    `json:"status" gorm:"column:status"`
+	common.SQLModel
+	Name string `json:"name" gorm:"column:name"`
+	Addr string `json:"addr" gorm:"column:addr"`
 }
 
 func (Restaurant) TableName() string {
@@ -26,7 +31,7 @@ func (RestaurantUpdate) TableName() string {
 }
 
 type RestaurantCreate struct {
-	Id   int    `json:"id" gorm:"column:id"`
+	common.SQLModel
 	Name string `json:"name" gorm:"column:name"`
 	Addr string `json:"addr" gorm:"column:addr"`
 }
@@ -34,3 +39,17 @@ type RestaurantCreate struct {
 func (RestaurantCreate) TableName() string {
 	return Restaurant{}.TableName()
 }
+
+func (data *RestaurantCreate) Validate() error {
+	data.Name = strings.TrimSpace(data.Name)
+
+	if data.Name == "" {
+		return ErrNameIsEmpty
+	}
+
+	return nil
+}
+
+var (
+	ErrNameIsEmpty = errors.New("Name is cannot be empty")
+)

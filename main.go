@@ -20,6 +20,8 @@ func main() {
 	}
 	fmt.Println("Connected to MySQL: ", db)
 
+	db = db.Debug()
+
 	appCtx := appctx.NewAppContext(db)
 	// Lib Gin to write REST API
 	r := gin.Default()
@@ -30,6 +32,8 @@ func main() {
 	restaurants.POST("", ginrestaurant.CreateRestaurant(appCtx))
 	// DELETE RESTAURANTS
 	restaurants.DELETE("/:id", ginrestaurant.DeleteRestaurant(appCtx))
+	// LIST RESTAURANT
+	restaurants.GET("", ginrestaurant.ListRestaurant(appCtx))
 
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 
